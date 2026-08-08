@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR YOU</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:linear-gradient(135deg, #2454cb, #2951b6, #6f98ff);
+            overflow-x:hidden;
+        }
+
+        /* HEADER */
+        header{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            padding:18px 40px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            backdrop-filter:blur(10px);
+            background:rgba(255,255,255,0.15);
+            border-bottom:1px solid rgba(255,255,255,0.2);
+            z-index:1000;
+        }
+
+        header h1{
+            color:white;
+            text-shadow:0 0 10px rgba(255,255,255,0.8);
+        }
+
+        /* HERO */
+        .hero{
+            height:100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:20px;
+        }
+
+        .hero h2{
+            font-size:4rem;
+            color:white;
+            margin-bottom:15px;
+            text-align:center;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p{
+            color:white;
+            font-size:1.2rem;
+            animation:fadeUp 2s ease;
+        }
+
+        /* KOTAK PUTIH */
+        .message-box{
+            width:90%;
+            max-width:735px;
+            margin:auto;
+            margin-bottom:80px;
+            background:white;
+            border-radius:30px;
+            padding:40px;
+            min-height:300px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.1);
+            position:relative;
+            z-index:10;
+        }
+
+        .message-box h3{
+            text-align:center;
+            color:#365092;
+            margin-bottom:10px;
+        }
+
+        .message-box p{
+            text-align:center;
+            color:#555;
+            line-height:2;
+        }
+
+        /* BUNGA / HEART */
+        .flower{
+            position:fixed;
+            top:-50px;
+            z-index:1;
+            pointer-events:none;
+            animation:fall linear forwards;
+        }
+
+        #musicBtn{
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            padding:12px 18px;
+            border:none;
+            border-radius:30px;
+            background:#000000;
+            color:white;
+            cursor:pointer;
+            z-index:999;
+        }
+
+        /* ANIMASI */
+        @keyframes fall{
+            0%{ transform: translateY(-100px) rotate(0deg); opacity:1; }
+            100%{ transform: translateY(110vh) rotate(360deg); opacity:0; }
+        }
+
+        @keyframes fadeUp{
+            from{ opacity:0; transform:translateY(30px); }
+            to{ opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes float{
+            0%{ transform:translateY(0); }
+            50%{ transform:translateY(-15px); }
+            100%{ transform:translateY(0); }
+        }
+
+        @keyframes glow{
+            from{ text-shadow: 0 0 10px #fff, 0 0 40px #6f98ff, 0 0 40px #0d46d4; }
+            to{ text-shadow: 0 0 20px #fff, 0 0 40px #6f80ff, 0 0 40px #6f98ff; }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .hero h2{ font-size:2.2rem; }
+            .message-box{ padding:25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="Backstreet Boys - Shape Of My Heart (Official HD Video) - BackstreetBoysVEVO.mp3" type="audio/mpeg">
+    </audio>
+
+    <header>
+        <h1>WEBSITE FOR YOU !</h1>
+    </header>
+
+    <section class="hero">
+        <h2>For Amelia Cahya Ramadhani</h2>
+        <p>LOOK AT THE MESSAGE BROUGHT</p>
+    </section>
+    
+    <button id="musicBtn">🎵 Play Music</button>
+
+    <section class="message-box">
+        <h3>MESSAGE FOR YOU</h3>
+        <p>In the vastness of the universe, among the infinite blue depths of the cosmos, being your ex has given me beautiful memories in my life. 
+        Like the calming blue color you liked, your presence always brought peace and wisdom, you have shaped me today.
+        Among billions of atoms and endless possibilities, I am truly grateful that our paths once crossed. 
+        Thank you for being my constant blue sky. I miss you, but I know you already move on at me. Thank you.</p>
+    </section>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("flower");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (15 + Math.random() * 25) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 6) + "s";
+            heart.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        setInterval(createHeart, 250);
+
+        const music = document.getElementById("bgMusic");
+        const btn = document.getElementById("musicBtn");
+
+        btn.addEventListener("click", () => {
+            if(music.paused){
+                music.play();
+                btn.innerHTML = "🔇 Pause Music";
+            } else {
+                music.pause();
+                btn.innerHTML = "🎵 Play Music";
+            }
+        });
+
+        document.addEventListener("click", () => {
+            music.play();
+        }, { once: true });
+    </script>
+
+</body>
+</html>
